@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="edu.washington.pypark.quizdroid">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -17,27 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Overview"
-        android:label="Overview"
-        android:launchMode="singleTop">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity"/>
 
-        </activity>
-        <activity android:name=".Question"
-                  android:label="Question"
-                  android:launchMode="singleTop">
+        <activity
+                android:name=".QuizActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                        android:value=".MainActivity"/>
-
-        </activity>
-
-        <activity android:name=".Answer"
-                  android:label="Answer"
-                  android:launchMode="singleTop">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                       android:value=".MainActivity"/>
-
         </activity>
     </application>
 
