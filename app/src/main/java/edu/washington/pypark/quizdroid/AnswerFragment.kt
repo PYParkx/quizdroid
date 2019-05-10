@@ -3,6 +3,7 @@ package edu.washington.pypark.quizdroid
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,26 +45,22 @@ class AnswerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val main = inflater.inflate(R.layout.answer_fragment, container, false)
-
-        val done = QuestionList.questionList(this.quizNumber)!!.size - this.questionTotal
-
-        val userAnswerView = main.findViewById<TextView>(R.id.userAnswer)
-        val correctAnswerView = main.findViewById<TextView>(R.id.userCorrectAnswer)
-        val scoreView = main.findViewById<TextView>(R.id.quizScore)
+        val userAnswer = main.findViewById<TextView>(R.id.userAnswer)
+        val correctAnswer = main.findViewById<TextView>(R.id.userCorrectAnswer)
+        val score = main.findViewById<TextView>(R.id.quizScore)
         val nextButton = main.findViewById<Button>(R.id.next_button)
-
-        userAnswerView.text = this.answer
-        correctAnswerView.text = this.correctAnswer
-        if (done == 0) {
+        userAnswer.text = this.answer
+        correctAnswer.text = this.correctAnswer
+        if (this.currentQuestion + 1 == this.questionTotal) {
             nextButton.text = "Finish"
         } else {
             nextButton.text = "Next"
         }
 
-        scoreView.text = "You have " + this.correctTotal.toString() +  " out of " + this.questionTotal +  " correct"
+        score.text = "You have " + this.correctTotal.toString() +  " out of " + this.questionTotal.toString() +  " correct"
         nextButton.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
-                if (done == 0) {
+                if (currentQuestion + 1 == questionTotal) {
                     startActivity(Intent(context, MainActivity::class.java))
                 } else {
                     val questionFragment : QuestionFragment = QuestionFragment.newInstance(quizNumber, currentQuestion.inc(), correctTotal, questionTotal)

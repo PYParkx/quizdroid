@@ -14,11 +14,10 @@ class QuizActivity : AppCompatActivity(), FragmentChangeListener {
         setup()
     }
 
-    fun setup() {
-        val quiz = intent.getStringExtra("quiz")
-        val quizNumber = intent.getIntExtra("quizNumber", 0)
-        val quizDesc = intent.getStringExtra("quizDesc")
-        val overviewFragment : OverviewFragment = OverviewFragment.newInstance(quiz, quizDesc, quizNumber)
+    private fun setup() {
+        val index = intent.getIntExtra("index", 0)
+        val quiz = QuizApp.topicRepository.getQuiz(index)
+        val overviewFragment : OverviewFragment = OverviewFragment.newInstance(quiz.quizTitle, quiz.quizDesc, index)
         val manager : FragmentManager = supportFragmentManager
         val transaction : FragmentTransaction = manager.beginTransaction()
         transaction.add(R.id.quizActivity, overviewFragment)
